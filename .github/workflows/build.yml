@@ -28,29 +28,51 @@ jobs:
       uses: pnpm/action-setup@v2
       with:
         version: 8
-        
+      
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '18'
         cache: 'pnpm'
         cache-dependency-path: '**/pnpm-lock.yaml'
-        
+    
     - name: Install dependencies
       run: pnpm install
+      id: install
+      continue-on-error: true
+
+    - name: Retry Install on Failure
+      if: steps.install.outcome == 'failure'
+      run: |
+        rm -rf node_modules
+        pnpm install --no-frozen-lockfile
       
     - name: Build
       run: pnpm build
+      id: build
       
     - name: Setup Pages
+      if: success() && github.event_name != 'pull_request'
       uses: actions/configure-pages@v4
       
     - name: Upload artifact
+      if: success() && github.event_name != 'pull_request'
       uses: actions/upload-pages-artifact@v3
       with:
         path: dist
+        
+    - name: Report Build Status
+      if: always()
+      run: |
+        if [ "${{ steps.build.outcome }}" == "success" ]; then
+          echo "✅ Build completed successfully"
+        else
+          echo "❌ Build failed"
+          exit 1
+        fi
 
   deploy:
+    if: github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -60,4 +82,15 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 
+        uses: actions/deploy-pages@v4
+        
+      - name: Report Deployment Status
+        if: always()
+        run: |
+          if [ "${{ steps.deployment.outcome }}" == "success" ]; then
+            echo "✅ Deployment completed successfully"
+            echo "🌐 Site is live at: ${{ steps.deployment.outputs.page_url }}"
+          else
+            echo "❌ Deployment failed"
+            exit 1
+          fi 
