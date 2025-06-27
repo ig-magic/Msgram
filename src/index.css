@@ -1,0 +1,272 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2% 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2% 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2% 84% 4.9%;
+    --primary: 221.2% 83.2% 53.3%;
+    --primary-foreground: 210% 40% 98%;
+    --secondary: 210% 40% 98%;
+    --secondary-foreground: 222.2% 84% 4.9%;
+    --muted: 210% 40% 98%;
+    --muted-foreground: 215.4% 16.3% 46.9%;
+    --accent: 210% 40% 98%;
+    --accent-foreground: 222.2% 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210% 40% 98%;
+    --border: 214.3% 31.8% 91.4%;
+    --input: 214.3% 31.8% 91.4%;
+    --ring: 221.2% 83.2% 53.3%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2% 84% 4.9%;
+    --foreground: 210% 40% 98%;
+    --card: 222.2% 84% 4.9%;
+    --card-foreground: 210% 40% 98%;
+    --popover: 222.2% 84% 4.9%;
+    --popover-foreground: 210% 40% 98%;
+    --primary: 210% 40% 98%;
+    --primary-foreground: 222.2% 84% 4.9%;
+    --secondary: 217.2% 32.6% 17.5%;
+    --secondary-foreground: 210% 40% 98%;
+    --muted: 217.2% 32.6% 17.5%;
+    --muted-foreground: 215% 20.2% 65.1%;
+    --accent: 217.2% 32.6% 17.5%;
+    --accent-foreground: 210% 40% 98%;
+    --destructive: 0% 62.8% 30.6%;
+    --destructive-foreground: 210% 40% 98%;
+    --border: 217.2% 32.6% 17.5%;
+    --input: 217.2% 32.6% 17.5%;
+    --ring: 212.7% 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Global styles for Msgram */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Remove default button styles */
+button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Remove default input styles */
+input {
+  outline: none;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Selection styles */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+}
+
+::-moz-selection {
+  background: rgba(59, 130, 246, 0.3);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid rgb(59, 130, 246);
+  outline-offset: 2px;
+}
+
+/* Telegram-specific animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Telegram color palette */
+:root {
+  --telegram-blue: #0088cc;
+  --telegram-blue-dark: #006ba1;
+  --telegram-blue-light: #40a8e0;
+  --telegram-green: #26d0ce;
+  --telegram-red: #e53e3e;
+  --telegram-gray: #8e8e93;
+  --telegram-light-gray: #f5f5f5;
+  --telegram-dark-gray: #2c2c2e;
+}
+
+/* Utility classes */
+.telegram-shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.telegram-shadow-lg {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.10);
+}
+
+/* Message bubble styles */
+.message-bubble {
+  position: relative;
+  max-width: 70%;
+  word-wrap: break-word;
+  border-radius: 18px;
+  padding: 8px 16px;
+  margin: 2px 0;
+}
+
+.message-bubble.own {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  margin-left: auto;
+  border-bottom-right-radius: 6px;
+}
+
+.message-bubble.other {
+  background: #f3f4f6;
+  color: #1f2937;
+  margin-right: auto;
+  border-bottom-left-radius: 6px;
+}
+
+/* Online status */
+.status-online {
+  background: #10b981;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+/* Chat item styles */
+.chat-item {
+  transition: background-color 0.2s ease;
+}
+
+.chat-item:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.chat-item.active {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-right: 3px solid #3b82f6;
+}
+
+/* Typography */
+.text-telegram-blue {
+  color: var(--telegram-blue);
+}
+
+.bg-telegram-blue {
+  background-color: var(--telegram-blue);
+}
+
+.bg-telegram-blue:hover {
+  background-color: var(--telegram-blue-dark);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .message-bubble {
+    max-width: 85%;
+  }
+  
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}

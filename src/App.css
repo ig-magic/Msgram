@@ -1,0 +1,158 @@
+/* Msgram - Telegram Clone Styles */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Message animations */
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-slide-in {
+  animation: messageSlideIn 0.2s ease-out;
+}
+
+/* Typing indicator animation */
+@keyframes typing {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+}
+
+.typing-dot {
+  animation: typing 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Chat bubble styles */
+.chat-bubble-own {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+.chat-bubble-other {
+  background: #f3f4f6;
+}
+
+/* Online status indicator */
+.online-indicator {
+  box-shadow: 0 0 0 2px white;
+}
+
+/* Custom focus styles */
+.focus-ring:focus {
+  outline: none;
+  ring: 2px;
+  ring-color: #3b82f6;
+  ring-offset: 2px;
+}
+
+/* Telegram-style button hover effects */
+.telegram-button {
+  transition: all 0.2s ease-in-out;
+}
+
+.telegram-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .chat-layout {
+    flex-direction: column;
+  }
+  
+  .sidebar-mobile {
+    width: 100%;
+    height: auto;
+    max-height: 40vh;
+  }
+  
+  .chat-window-mobile {
+    flex: 1;
+    min-height: 60vh;
+  }
+}
+
+/* Dark theme support */
+.dark {
+  --background: 222.2% 84% 4.9%;
+  --foreground: 210% 40% 98%;
+  --card: 222.2% 84% 4.9%;
+  --card-foreground: 210% 40% 98%;
+  --popover: 222.2% 84% 4.9%;
+  --popover-foreground: 210% 40% 98%;
+  --primary: 210% 40% 98%;
+  --primary-foreground: 222.2% 84% 4.9%;
+  --secondary: 217.2% 32.6% 17.5%;
+  --secondary-foreground: 210% 40% 98%;
+  --muted: 217.2% 32.6% 17.5%;
+  --muted-foreground: 215% 20.2% 65.1%;
+  --accent: 217.2% 32.6% 17.5%;
+  --accent-foreground: 210% 40% 98%;
+  --destructive: 0% 62.8% 30.6%;
+  --destructive-foreground: 210% 40% 98%;
+  --border: 217.2% 32.6% 17.5%;
+  --input: 217.2% 32.6% 17.5%;
+  --ring: 212.7% 26.8% 83.9%;
+}
+
+/* Utility classes */
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bg-gradient-telegram {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
