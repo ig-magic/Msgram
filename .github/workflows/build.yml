@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build, Test and Deploy
 
 on:
   push:
@@ -18,7 +18,47 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'pnpm'
+        cache-dependency-path: '**/pnpm-lock.yaml'
+    
+    - name: Install dependencies
+      run: pnpm install
+      id: install
+      continue-on-error: true
+
+    - name: Retry Install on Failure
+      if: steps.install.outcome == 'failure'
+      run: |
+        rm -rf node_modules
+        pnpm install --no-frozen-lockfile
+        
+    - name: Run Tests
+      run: pnpm test
+      
+    - name: Upload Test Coverage
+      if: success()
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: coverage/
+        
   build:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
